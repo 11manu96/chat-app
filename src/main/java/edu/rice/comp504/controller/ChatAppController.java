@@ -51,7 +51,7 @@ public class ChatAppController extends Observable {
     /**
      * creates a new user if user not created or logins an already registered user
      * @param user session request if recieved from
-     * @param request
+     * @param request contains the request parameters
      */
     public static void logIn(User user, String request){}
 
@@ -68,6 +68,13 @@ public class ChatAppController extends Observable {
      * @param request contains the request parameters
      */
     public static void joinChatRoom(User user, String request){}
+
+    /**
+     * This funcyion returns chat room object
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void getChatRoom(User user, String request){}
 
     /**
      * funtion invoked by WSC for exiting a particular user from a/all chatroom

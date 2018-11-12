@@ -39,7 +39,7 @@ public class WebSocketController {
     public void onMessage(Session user, String message) {
 
 
-        //broadcast the messaxge to all clients
+        //broadcast the message to all clients
 
         //parses message and get request or message
         String type = "";
@@ -51,10 +51,11 @@ public class WebSocketController {
         switch(type){
 
             case "log_in":
-                /*pass username password and session to CAC, check for valid password and check if user exists,
-                    also returns user_name of a unique identifier to the view
-                 */
                 ChatAppController.getInstance().logIn(userObj, message);
+                break;
+
+            case "get_chat_room":
+                ChatAppController.getInstance().getChatRoom(userObj, message);
                 break;
 
             case "create_chat_room":
