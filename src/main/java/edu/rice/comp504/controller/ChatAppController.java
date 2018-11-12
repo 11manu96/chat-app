@@ -17,9 +17,10 @@ public class ChatAppController extends Observable {
     static Map<String, User> usernameHashmap = new ConcurrentHashMap<>();
     static ChatAppController chatAppController;
 
-    private void ChatAppController(){
+    private ChatAppController() {
 
     }
+
     /**
      * Chat App entry point.
      * @param args The command line arguments

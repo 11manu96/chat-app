@@ -8,7 +8,7 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 /**
- * Create a web socket for the server
+ * Create a web socket for the server.
  */
 @WebSocket
 public class WebSocketController {
@@ -30,7 +30,7 @@ public class WebSocketController {
     }
 
     /**
-     * Parsing json request or message from front end
+     * Parsing json request or message from front end.
      * @param user  The session user sending the message.
      * @param message The message to be sent.
      */

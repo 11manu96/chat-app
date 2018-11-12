@@ -111,7 +111,7 @@ public class ChatRoom extends Observable implements Observer {
     }
 
     /**
-     * Receive message from ChatAppController and notify users in room
+     * Receive message from ChatAppController and notify users in room.
      * @param o ChatAppController
      * @param arg send message command
      */
