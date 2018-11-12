@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ChatApp</title>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/chatapp.js"></script>
+        <script src="js/chatRoom.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/chatRoom.css" />
+    </head>
+    <body>
+        <div align="center" >
+            <h1><span>Chat Room</span></h1>
+            <div id="chat">
+                <div id="chat-top">
+                    <div id="chat-user">
+                        <div id="chat-user-t">Online User</div>
+                        <select id="slt-existedlist" multiple="multiple" size="8" style="height: 355px; width: 120px;">
+                        </select>
+                    </div>
+                    <div id="chat-dialog">
+                    <div id="chat-dialog-t">Chat Area</div>
+                        <div id="chat-dialog-con">
+                        </div>
+                    </div>
+                </div>
+                <div id="chat-bottom">
+                    <div id="chat-input">
+                        <div id="chat-input-expr">
+                        </div>
+                        <div id="chat-input-edit">
+                            <div id="input-field">
+                                <textarea id="txtInput"></textarea>
+                            </div>
+                            <div id="input-btn">
+                                <input id="btnSend" type="button" value="Send"/>
+                            </div>
+                        </div>
+                        <div id="chat-input-tip"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

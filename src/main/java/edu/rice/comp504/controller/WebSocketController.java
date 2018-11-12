@@ -21,14 +21,13 @@ public class WebSocketController {
     public void onConnect(Session user) {
         //generate username, add to session to userId map
         int userId = ChatAppController.nextUserId++;
-        ChatAppController.userNameMap.put(user, userId);
+        //ChatAppController.userNameMap.put(user, userId);
 
         //broadcasts user id counter to view
         try {
             JsonObject jo = new JsonObject();
             jo.addProperty("userId", userId);
             user.getRemote().sendString(String.valueOf(jo));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
