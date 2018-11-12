@@ -1,6 +1,7 @@
 package edu.rice.comp504.controller;
 
 import com.google.gson.JsonObject;
+import edu.rice.comp504.chatappobject.User;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -36,10 +37,16 @@ public class WebSocketController {
      */
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
-        //broadcast the message to all clients
 
-        //parses message and
+
+        //broadcast the messaxge to all clients
+
+        //parses message and get request or message
         String type = "";
+
+        //get User object from ChatAppController
+        User userObj = null;
+
 
         switch(type){
 
@@ -47,22 +54,23 @@ public class WebSocketController {
                 /*pass username password and session to CAC, check for valid password and check if user exists,
                     also returns user_name of a unique identifier to the view
                  */
-                ChatAppController.getInstance().logIn(user, message);
+                ChatAppController.getInstance().logIn(userObj, message);
                 break;
 
             case "create_chat_room":
                 //create chat room
-                ChatAppController.getInstance().createChatRoom(user, message);
+                ChatAppController.getInstance().createChatRoom(userObj, message);
                 break;
             case "join_chat_room":
                 //join an already existing chat room
-                ChatAppController.getInstance().joinChatRoom(user, message);
+                ChatAppController.getInstance().joinChatRoom(userObj, message);
                 break;
             case "leave_Chat_room":
-                ChatAppController.getInstance().leaveChatRoom(user, message);
+                ChatAppController.getInstance().leaveChatRoom(userObj, message);
                 break;
+
             case "get_eligible_chat_room_list":
-                ChatAppController.getInstance().getEligibleChatRooms(user, message);
+                ChatAppController.getInstance().getEligibleChatRooms(userObj, message);
                 break;
 
 

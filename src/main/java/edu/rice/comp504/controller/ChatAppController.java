@@ -9,6 +9,7 @@ import org.eclipse.jetty.websocket.api.Session;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static spark.Spark.*;
@@ -17,9 +18,9 @@ import static j2html.TagCreator.*;
 /**
  * The chat app controller communicates with all the clients on the web socket.
  */
-public class ChatAppController {
+public class ChatAppController extends Observable {
     static Map<Session, String> sessionUsernameHashmap = new ConcurrentHashMap<>();
-    static Map<User, String> usernameHashmap = new ConcurrentHashMap<>();
+    static Map<String, User> usernameHashmap = new ConcurrentHashMap<>();
     static ChatAppController chatAppController;
 
     private void ChatAppController(){
@@ -35,37 +36,6 @@ public class ChatAppController {
 
         webSocket("/chatapp", WebSocketController.class);
         init();
-
-
-    }
-
-    /**
-     * This function is called by CAC to create the user.
-     * @param body post request contains the user name and password
-     * @return User id and status of the post request
-     */
-    private static Object createUser(String body){
-        //TODO return the created user and also update the hashmaps.
-        return "";
-    }
-
-    /**
-     * This function is called by CAC to create the chat room.
-     * @param body post requst contains the user name and password
-     * @return chat room id
-     */
-    private static Object createChatRoom(String body){
-        //TODO return the created chat room and also update the hashmaps.
-        return "";
-    }
-
-    /**
-     * This function is called by CAC to join the select chat room.
-     * @param body chat room info
-     */
-    private static Object joinChatRoom(String body){
-        //TODO return the chat room the user selected.
-        return "";
     }
 
     /**
@@ -78,16 +48,40 @@ public class ChatAppController {
         return "";
     }
 
+    /**
+     * creates a new user if user not created or logins an already registered user
+     * @param user session request if recieved from
+     * @param request
+     */
+    public static void logIn(User user, String request){}
 
-    public static void logIn(Session session, String request){}
+    /**
+     * This function is called by WSC to create the chat room.
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void createChatRoom(User user, String request){}
 
-    public static void createChatRoom(Session session, String request){}
+    /**
+     * This function is called by WSC to join the selected chat room.
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void joinChatRoom(User user, String request){}
 
-    public static void joinChatRoom(Session session, String request){}
+    /**
+     * funtion invoked by WSC for exiting a particular user from a/all chatroom
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void leaveChatRoom(User user, String request){}
 
-    public static void leaveChatRoom(Session session, String request){}
-
-    public static void getEligibleChatRooms(Session session, String request){}
+    /**
+     * function envoked by WSC to get all eligible chatrooms for user
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void getEligibleChatRooms(User user, String request){}
 
 
 
