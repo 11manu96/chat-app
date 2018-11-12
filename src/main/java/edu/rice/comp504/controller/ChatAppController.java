@@ -58,7 +58,7 @@ public class ChatAppController extends Observable {
            return gson.toJson("");
         });
 
-        get("/CAC", (request, response) -> {
+        get("/getChatApp", (request, response) -> {
             //TODO return the ChatRoomController itself
            return gson.toJson("");
         });
