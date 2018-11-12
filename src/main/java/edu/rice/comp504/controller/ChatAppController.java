@@ -1,5 +1,6 @@
 package edu.rice.comp504.controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.eclipse.jetty.websocket.api.Session;
 
@@ -26,18 +27,31 @@ public class ChatAppController {
 
         webSocket("/chatapp", WebSocketController.class);
         init();
-      
+
+        /**
+         * registers a new user or logs in an already registered user
+         * returns the newly created user
+         */
         Gson gson = new Gson();
-        post("/login", (request, response) -> {
+        post("/createUser", (request, response) -> {
             String body = request.body();
             return gson.toJson(createUser(body));
         });
 
+        /**
+         * handles request for creating a new chat room
+         * returns chat room id if chat room successfully created, else returns error message
+         */
         post("/createChatRoom", (request, response) -> {
             String body = request.body();
             return gson.toJson(createChatRoom(body));
         });
 
+        /**
+         * end point is called when a user joins a chat room
+         * returns the chat room and success if chat rooms successfully joined
+         * if chat room already joined then it returns the chat room
+         */
         post("/joinChatRoom", (request, response) -> {
             //TODO implement functionality for joining a chat room
             String body = request.body();
@@ -45,6 +59,10 @@ public class ChatAppController {
             return gson.toJson(joinChatRoom(body));
         });
 
+        /**
+         * handles the request to leave a chat room
+         * returns success if chat rooms successfully exited
+         */
         post("/leaveChatRoom", (request, response) -> {
             //TODO implement functionality for leaving a chat room
             String body = request.body();
@@ -52,11 +70,12 @@ public class ChatAppController {
            return gson.toJson("");
         });
 
-        get("/getChatApp", (request, response) -> {
-            //TODO return the ChatRoomController itself
-           return gson.toJson("");
-        });
 
+        /**
+         * returns two lists,
+         * one contains eligible chatrooms the user has already joined,
+         * the other contains eligible chatrooms the user hasn't joined
+         */
         get("/getEligibleChatRooms", (request, response) -> {
 
             return gson.toJson("");
