@@ -2,10 +2,14 @@ package edu.rice.comp504.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import edu.rice.comp504.chatappobject.ChatRoom;
 import edu.rice.comp504.chatappobject.User;
 import org.eclipse.jetty.websocket.api.Session;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static spark.Spark.*;
@@ -14,12 +18,14 @@ import static j2html.TagCreator.*;
 /**
  * The chat app controller communicates with all the clients on the web socket.
  */
-public class ChatAppController {
-    static Map<Session, Integer> userSessionIDMap = new ConcurrentHashMap<>();
-    static Map<Integer, String> userIDNameMap = new ConcurrentHashMap<>();
-    static Map<String, User> userNameObjMap = new ConcurrentHashMap<>();
-    static int nextUserId = 1;
+public class ChatAppController extends Observable {
+    static Map<Session, String> sessionUsernameHashmap = new ConcurrentHashMap<>();
+    static Map<String, User> usernameHashmap = new ConcurrentHashMap<>();
+    static ChatAppController chatAppController;
 
+    private void ChatAppController(){
+
+    }
     /**
      * Chat App entry point.
      * @param args The command line arguments
@@ -30,89 +36,6 @@ public class ChatAppController {
 
         webSocket("/chatapp", WebSocketController.class);
         init();
-
-        /**
-         * registers a new user or logs in an already registered user
-         * returns the newly created user
-         */
-        Gson gson = new Gson();
-        post("/createUser", (request, response) -> {
-            String body = request.body();
-            return gson.toJson(createUser(body));
-        });
-
-        /**
-         * handles request for creating a new chat room
-         * returns chat room id if chat room successfully created, else returns error message
-         */
-        post("/createChatRoom", (request, response) -> {
-            String body = request.body();
-            return gson.toJson(createChatRoom(body));
-        });
-
-        /**
-         * end point is called when a user joins a chat room
-         * returns the chat room and success if chat rooms successfully joined
-         * if chat room already joined then it returns the chat room
-         */
-        post("/joinChatRoom", (request, response) -> {
-            //TODO implement functionality for joining a chat room
-            String body = request.body();
-
-            return gson.toJson(joinChatRoom(body));
-        });
-
-        /**
-         * handles the request to leave a chat room
-         * returns success if chat rooms successfully exited
-         */
-        post("/leaveChatRoom", (request, response) -> {
-            //TODO implement functionality for leaving a chat room
-            String body = request.body();
-
-           return gson.toJson("");
-        });
-
-
-        /**
-         * returns two lists,
-         * one contains eligible chatrooms the user has already joined,
-         * the other contains eligible chatrooms the user hasn't joined
-         */
-        get("/getEligibleChatRooms", (request, response) -> {
-
-            return gson.toJson("");
-        });
-
-    }
-
-    /**
-     * This function is called by CAC to create the user.
-     * @param body post request contains the user name and password
-     * @return User id and status of the post request
-     */
-    private static Object createUser(String body){
-        //TODO return the created user and also update the hashmaps.
-        return "";
-    }
-
-    /**
-     * This function is called by CAC to create the chat room.
-     * @param body post requst contains the user name and password
-     * @return chat room id
-     */
-    private static Object createChatRoom(String body){
-        //TODO return the created chat room and also update the hashmaps.
-        return "";
-    }
-
-    /**
-     * This function is called by CAC to join the select chat room.
-     * @param body chat room info
-     */
-    private static Object joinChatRoom(String body){
-        //TODO return the chat room the user selected.
-        return "";
     }
 
     /**
@@ -123,6 +46,52 @@ public class ChatAppController {
     public static Object sendMessage(String body){
         //TODO parse and return the info.
         return "";
+    }
+
+    /**
+     * creates a new user if user not created or logins an already registered user
+     * @param user session request if recieved from
+     * @param request
+     */
+    public static void logIn(User user, String request){}
+
+    /**
+     * This function is called by WSC to create the chat room.
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void createChatRoom(User user, String request){}
+
+    /**
+     * This function is called by WSC to join the selected chat room.
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void joinChatRoom(User user, String request){}
+
+    /**
+     * funtion invoked by WSC for exiting a particular user from a/all chatroom
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void leaveChatRoom(User user, String request){}
+
+    /**
+     * function envoked by WSC to get all eligible chatrooms for user
+     * @param user session request if recieved from
+     * @param request contains the request parameters
+     */
+    public static void getEligibleChatRooms(User user, String request){}
+
+
+
+    public static ChatAppController getInstance(){
+
+        if(chatAppController == null){
+            chatAppController = new ChatAppController();
+        }
+
+        return chatAppController;
     }
 
     /**
