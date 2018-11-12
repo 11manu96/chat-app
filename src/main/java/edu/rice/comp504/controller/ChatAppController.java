@@ -1,19 +1,13 @@
 package edu.rice.comp504.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import edu.rice.comp504.chatappobject.ChatRoom;
-import edu.rice.comp504.chatappobject.User;
+import edu.rice.comp504.model.chatappobjects.User;
 import org.eclipse.jetty.websocket.api.Session;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static spark.Spark.*;
-import static j2html.TagCreator.*;
 
 /**
  * The chat app controller communicates with all the clients on the web socket.
