@@ -1,6 +1,7 @@
 package edu.rice.comp504.controller;
 
 import edu.rice.comp504.model.chatappobjects.User;
+
 import org.eclipse.jetty.websocket.api.Session;
 
 import java.util.Map;
@@ -10,19 +11,34 @@ import java.util.concurrent.ConcurrentHashMap;
 import static spark.Spark.*;
 
 /**
- * The chat app controller communicates with all the clients on the web socket.
+ * The chat app controller communicates with all the clients on the web socket. It is an
+ * observable observed by the chat rooms.
  */
 public class ChatAppController extends Observable {
     static Map<Session, String> sessionUsernameHashmap = new ConcurrentHashMap<>();
-    static Map<String, User> usernameHashmap = new ConcurrentHashMap<>();
-    static ChatAppController chatAppController;
+    static Map<String, User> usernameUserHashmap = new ConcurrentHashMap<>();
+    private static ChatAppController chatAppController;
 
+    /**
+     * Constructor.
+     */
     private ChatAppController() {
 
     }
 
     /**
-     * Chat App entry point.
+     * Get singleton instance of ChatAppController.
+     * @return ChatAppController singleton
+     */
+    public static ChatAppController getInstance() {
+        if (chatAppController == null) {
+            chatAppController = new ChatAppController();
+        }
+        return chatAppController;
+    }
+
+    /**
+     * ChatApp entry point.
      * @param args The command line arguments
      */
     public static void main(String[] args) {
@@ -34,66 +50,54 @@ public class ChatAppController extends Observable {
     }
 
     /**
-     * This message sends commands to all the observers in the chat rooms.
-     * It should handle both one-to-one msg and one-to-multi msg
-     * @param body user send msg to user in chat room
+     * Creates a new user if user not created or retrieves an existing user.
+     * @param user user session
+     * @param request request body
      */
-    public static Object sendMessage(String body){
-        //TODO parse and return the info.
-        return "";
-    }
+    public void logIn(Session user, String request) {}
 
     /**
-     * creates a new user if user not created or logins an already registered user
-     * @param user session request if recieved from
-     * @param request contains the request parameters
+     * Get all chatrooms user is in or can join.
+     * @param user user session
+     * @param request request body
      */
-    public static void logIn(User user, String request){}
+    public void getEligibleChatRooms(Session user, String request) {}
 
     /**
-     * This function is called by WSC to create the chat room.
-     * @param user session request if recieved from
-     * @param request contains the request parameters
+     * Create a chat room.
+     * @param user user session
+     * @param request request body
      */
-    public static void createChatRoom(User user, String request){}
+    public void createChatRoom(Session user, String request) {}
 
     /**
-     * This function is called by WSC to join the selected chat room.
-     * @param user session request if recieved from
-     * @param request contains the request parameters
+     * Join a chat room.
+     * @param user user session
+     * @param request request body
      */
-    public static void joinChatRoom(User user, String request){}
+    public void joinChatRoom(Session user, String request) {}
 
     /**
-     * This funcyion returns chat room object
-     * @param user session request if recieved from
-     * @param request contains the request parameters
+     * Get users in chat room and chat history.
+     * @param user user session
+     * @param request request body
      */
-    public static void getChatRoom(User user, String request){}
+    public void getChatRoom(Session user, String request) {}
 
     /**
-     * funtion invoked by WSC for exiting a particular user from a/all chatroom
-     * @param user session request if recieved from
-     * @param request contains the request parameters
+     * Exit one or all chat rooms.
+     * @param user user session
+     * @param request request body
      */
-    public static void leaveChatRoom(User user, String request){}
+    public void leaveChatRoom(Session user, String request) {}
 
     /**
-     * function envoked by WSC to get all eligible chatrooms for user
-     * @param user session request if recieved from
-     * @param request contains the request parameters
+     * Send a message command to all the chat room observers.
+     * It should handle both one-to-one msg and one-to-many msg
+     * @param request request body
      */
-    public static void getEligibleChatRooms(User user, String request){}
-
-
-
-    public static ChatAppController getInstance(){
-
-        if(chatAppController == null){
-            chatAppController = new ChatAppController();
-        }
-
-        return chatAppController;
+    public void sendMessage(String request) {
+        // notifyObservers();
     }
 
     /**
