@@ -1,7 +1,6 @@
 package edu.rice.comp504.controller;
 
-import com.google.gson.JsonObject;
-import edu.rice.comp504.chatappobject.User;
+import edu.rice.comp504.model.chatappobjects.User;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
