@@ -6,6 +6,8 @@ import edu.rice.comp504.chatappobject.ChatRoom;
 import edu.rice.comp504.chatappobject.User;
 import org.eclipse.jetty.websocket.api.Session;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,10 +18,8 @@ import static j2html.TagCreator.*;
  * The chat app controller communicates with all the clients on the web socket.
  */
 public class ChatAppController {
-    static Map<Session, Integer> userSessionIDMap = new ConcurrentHashMap<>();
-    static Map<Integer, User> userNameObjMap = new ConcurrentHashMap<>();
-    static Map<String, String> usernamePasswordHashMap = new ConcurrentHashMap<>();
-    static int nextUserId = 1;
+    static Map<Session, String> sessionUsernameHashmap = new ConcurrentHashMap<>();
+    static Map<User, String> usernameHashmap = new ConcurrentHashMap<>();
     static ChatAppController chatAppController;
 
     private void ChatAppController(){
@@ -78,21 +78,6 @@ public class ChatAppController {
         return "";
     }
 
-    public static void addUser(Session session){
-        //generate username, add to session to userId map
-        int userId = nextUserId++;
-        //ChatAppController.userNameMap.put(user, userId);
-
-        //broadcasts user id counter to view
-        try {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("userId", userId);
-            session.getRemote().sendString(String.valueOf(jo));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static void logIn(Session session, String request){}
 

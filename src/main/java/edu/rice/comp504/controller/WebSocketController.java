@@ -19,17 +19,6 @@ public class WebSocketController {
      */
     @OnWebSocketConnect
     public void onConnect(Session user) {
-
-        /*please note that this only updates the Session-id map and not changes anything else
-            this is because whenever a browser opens, websocket onConnect gets called, we wants to save the session
-            but not login or register user. Once the user tries to login, then the onMessage is called and that is
-            where we handle the entire login flow. i.e. attaching an unique id to user and connect it with the
-            session already present
-        */
-
-        ChatAppController.getInstance().addUser(user);
-
-
     }
 
     /**
@@ -38,12 +27,6 @@ public class WebSocketController {
      */
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
-        //remove user from session to username map
-
-
-        //remove user from userId to username map
-
-
     }
 
     /**
@@ -61,7 +44,7 @@ public class WebSocketController {
         switch(type){
 
             case "log_in":
-                /*pass username password and session to CAC, check for valid password and check if session exists,
+                /*pass username password and session to CAC, check for valid password and check if user exists,
                     also returns user_name of a unique identifier to the view
                  */
                 ChatAppController.getInstance().logIn(user, message);
