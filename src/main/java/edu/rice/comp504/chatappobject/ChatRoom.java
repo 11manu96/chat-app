@@ -1,28 +1,28 @@
 package edu.rice.comp504.chatappobject;
 
-import java.util.LinkedList;
+
 import java.util.Observable;
 import java.util.Observer;
 
 public class ChatRoom extends Observable implements Observer{
     private String name;
     private User owner;
-    private LinkedList<User> users;
-    private Restrictions restrictions;
+    private String restrictSchool;
+    private String restrictLocation;
+    private int restrictAge;
 
-    public ChatRoom(String name,User owner, Restrictions restrictions) {
-        this.name=name;
-        this.owner=owner;
-        this.restrictions=restrictions;
-        this.users=new LinkedList<>();
-        this.users.add(owner);
+    public ChatRoom(String name,User owner, String restrictLocation, String restrictSchool, int restrictAge) {
+        this.name = name;
+        this.owner = owner;
+        this.restrictAge = restrictAge;
+        this.restrictLocation = restrictLocation;
+        this.restrictSchool = restrictSchool;
+
 
     }
 
 
-    public LinkedList<User> getUsers() {
-        return users;
-    }
+
 
     public String getName() {
         return name;
@@ -32,13 +32,6 @@ public class ChatRoom extends Observable implements Observer{
         this.name = name;
     }
 
-    public Restrictions getRestrictions() {
-        return restrictions;
-    }
-
-    public void setRestrictions(Restrictions restrictions) {
-        this.restrictions = restrictions;
-    }
 
     public User getOwner() {
         return owner;
@@ -46,6 +39,30 @@ public class ChatRoom extends Observable implements Observer{
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public int getRestrictAge() {
+        return restrictAge;
+    }
+
+    public void setRestrictAge(int restrictAge) {
+        this.restrictAge = restrictAge;
+    }
+
+    public String getRestrictLocation() {
+        return restrictLocation;
+    }
+
+    public void setRestrictLocation(String restrictLocation) {
+        this.restrictLocation = restrictLocation;
+    }
+
+    public String getRestrictSchool() {
+        return restrictSchool;
+    }
+
+    public void setRestrictSchool(String restrictSchool) {
+        this.restrictSchool = restrictSchool;
     }
 
     @Override
