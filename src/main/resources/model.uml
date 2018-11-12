@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>edu.rice.comp504</OriginalElement>
+  <nodes>
+    <node x="707.0" y="0.0">edu.rice.comp504.model.cmd.ISndMsgCmd</node>
+    <node x="332.3125" y="0.0">edu.rice.comp504.model.chatappobjects.User</node>
+    <node x="394.0" y="432.0">edu.rice.comp504.model.chatappobjects.ChatRoom</node>
+    <node x="0.0" y="465.0">edu.rice.comp504.controller.ChatAppController</node>
+    <node x="67.5625" y="864.0">edu.rice.comp504.controller.WebSocketController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="edu.rice.comp504.model.chatappobjects.ChatRoom" target="edu.rice.comp504.model.chatappobjects.User">
+      <point x="-100.5" y="-191.0" />
+      <point x="-63.0" y="191.0" />
+    </edge>
+    <edge source="edu.rice.comp504.controller.ChatAppController" target="edu.rice.comp504.model.chatappobjects.User">
+      <point x="0.0" y="-158.0" />
+      <point x="187.0" y="407.0" />
+      <point x="363.8125" y="407.0" />
+      <point x="-126.0" y="191.0" />
+    </edge>
+    <edge source="edu.rice.comp504.model.chatappobjects.User" target="edu.rice.comp504.model.chatappobjects.ChatRoom">
+      <point x="126.0" y="191.0" />
+      <point x="615.8125" y="407.0" />
+      <point x="628.5" y="407.0" />
+      <point x="100.5" y="-191.0" />
+    </edge>
+    <edge source="edu.rice.comp504.controller.WebSocketController" target="edu.rice.comp504.controller.ChatAppController">
+      <point x="-68.75" y="-47.5" />
+      <point x="136.3125" y="839.0" />
+      <point x="93.5" y="839.0" />
+      <point x="-93.5" y="158.0" />
+    </edge>
+    <edge source="edu.rice.comp504.controller.ChatAppController" target="edu.rice.comp504.controller.WebSocketController">
+      <point x="93.5" y="158.0" />
+      <point x="280.5" y="839.0" />
+      <point x="273.8125" y="839.0" />
+      <point x="68.75" y="-47.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8544819557625145" x="347.0" y="409.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

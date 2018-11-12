@@ -57,35 +57,35 @@ public class ChatAppController extends Observable {
     public void logIn(Session user, String request) {}
 
     /**
-     * Get all chatrooms user is in or can join.
+     * Get all chatrooms user is in or can join. Send as JSON to session.
      * @param user user session
      * @param request request body
      */
     public void getEligibleChatRooms(Session user, String request) {}
 
     /**
-     * Create a chat room.
+     * Create a chat room. Send updated lists as JSON to session.
      * @param user user session
      * @param request request body
      */
     public void createChatRoom(Session user, String request) {}
 
     /**
-     * Join a chat room.
+     * Join a chat room. Send updated lists as JSON to session.
      * @param user user session
      * @param request request body
      */
     public void joinChatRoom(Session user, String request) {}
 
     /**
-     * Get users in chat room and chat history.
+     * Get users in chat room and chat history. Send as JSON to session.
      * @param user user session
      * @param request request body
      */
     public void getChatRoom(Session user, String request) {}
 
     /**
-     * Exit one or all chat rooms.
+     * Exit one or all chat rooms. Send updated lists as JSON to session.
      * @param user user session
      * @param request request body
      */
