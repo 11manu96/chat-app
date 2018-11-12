@@ -1,5 +1,6 @@
 package edu.rice.comp504.controller;
 
+import com.google.gson.JsonObject;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -19,11 +20,18 @@ public class WebSocketController {
     @OnWebSocketConnect
     public void onConnect(Session user) {
         //generate username, add to session to userId map
-        String userId = "" + ChatAppController.nextUserId++;
+        int userId = ChatAppController.nextUserId++;
         ChatAppController.userNameMap.put(user, userId);
 
         //broadcasts user id counter to view
-        ChatAppController.broadcastMessage(ChatAppController.userNameMap.get(user), ChatAppController.nextUserId);
+        try {
+            JsonObject jo = new JsonObject();
+            jo.addProperty("userId", userId);
+            user.getRemote().sendString(String.valueOf(jo));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -33,11 +41,10 @@ public class WebSocketController {
     @OnWebSocketClose
     public void onClose(Session user, int statusCode, String reason) {
         //remove user from session to username map
-        ChatAppController.userNameMap.remove(user);
+
 
         //remove user from userId to username map
-        String userId = ChatAppController.userNameMap.get(user);
-        ChatAppController.idNameMap(userId);
+
 
     }
 
@@ -49,7 +56,7 @@ public class WebSocketController {
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
         //broadcast the message to all clients
-        ChatAppController.broadcastMessage(ChatAppController.userNameMap.get(user), message);
+
 
     }
 }
