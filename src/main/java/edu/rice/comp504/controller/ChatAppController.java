@@ -1,11 +1,9 @@
 package edu.rice.comp504.controller;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.eclipse.jetty.websocket.api.Session;
 
 import java.util.Map;
-import java.util.Observable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static spark.Spark.*;
@@ -14,9 +12,8 @@ import static j2html.TagCreator.*;
 /**
  * The chat app controller communicates with all the clients on the web socket.
  */
-public class ChatAppController extends Observable {
+public class ChatAppController {
     static Map<Session,String> userNameMap = new ConcurrentHashMap<>();
-    //static Map<String, User> userObjMap = new ConcurrentHashMap<>();
     static int nextUserId = 1;
 
     /**
@@ -29,7 +26,7 @@ public class ChatAppController extends Observable {
 
         webSocket("/chatapp", WebSocketController.class);
         init();
-
+      
         Gson gson = new Gson();
         post("/login", (request, response) -> {
             String body = request.body();
