@@ -19,7 +19,6 @@ window.onload = function() {
         exitAll("slt-ownlist","slt-existedlist");
     });
 
-
 };
 
 function join(from,to) {
@@ -53,7 +52,7 @@ function exitAll(from,to) {
 }
 
 function enter() {
-    window.location.href='chatroom.html';
+    window.location.href='chatRoom.html';
 }
 
 function admin() {
@@ -61,5 +60,5 @@ function admin() {
 }
 
 function create() {
-    window.location.href='createroom.html';
+    window.location.href='createRoom.html';
 }
