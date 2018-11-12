@@ -19,18 +19,17 @@ public class WebSocketController {
      */
     @OnWebSocketConnect
     public void onConnect(Session user) {
-        //generate username, add to session to userId map
-        int userId = ChatAppController.nextUserId++;
-        //ChatAppController.userNameMap.put(user, userId);
 
-        //broadcasts user id counter to view
-        try {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("userId", userId);
-            user.getRemote().sendString(String.valueOf(jo));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        /*please note that this only updates the Session-id map and not changes anything else
+            this is because whenever a browser opens, websocket onConnect gets called, we wants to save the session
+            but not login or register user. Once the user tries to login, then the onMessage is called and that is
+            where we handle the entire login flow. i.e. attaching an unique id to user and connect it with the
+            session already present
+        */
+
+        ChatAppController.getInstance().addUser(user);
+
+
     }
 
     /**
@@ -48,13 +47,43 @@ public class WebSocketController {
     }
 
     /**
-     * Send a message.
+     * Parsing json request or message from front end
      * @param user  The session user sending the message.
      * @param message The message to be sent.
      */
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
         //broadcast the message to all clients
+
+        //parses message and
+        String type = "";
+
+        switch(type){
+
+            case "log_in":
+                /*pass username password and session to CAC, check for valid password and check if session exists,
+                    also returns user_name of a unique identifier to the view
+                 */
+                ChatAppController.getInstance().logIn(user, message);
+                break;
+
+            case "create_chat_room":
+                //create chat room
+                ChatAppController.getInstance().createChatRoom(user, message);
+                break;
+            case "join_chat_room":
+                //join an already existing chat room
+                ChatAppController.getInstance().joinChatRoom(user, message);
+                break;
+            case "leave_Chat_room":
+                ChatAppController.getInstance().leaveChatRoom(user, message);
+                break;
+            case "get_eligible_chat_room_list":
+                ChatAppController.getInstance().getEligibleChatRooms(user, message);
+                break;
+
+
+        }
 
 
     }

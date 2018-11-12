@@ -2,6 +2,7 @@ package edu.rice.comp504.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import edu.rice.comp504.chatappobject.ChatRoom;
 import edu.rice.comp504.chatappobject.User;
 import org.eclipse.jetty.websocket.api.Session;
 
@@ -16,10 +17,14 @@ import static j2html.TagCreator.*;
  */
 public class ChatAppController {
     static Map<Session, Integer> userSessionIDMap = new ConcurrentHashMap<>();
-    static Map<Integer, String> userIDNameMap = new ConcurrentHashMap<>();
-    static Map<String, User> userNameObjMap = new ConcurrentHashMap<>();
+    static Map<Integer, User> userNameObjMap = new ConcurrentHashMap<>();
+    static Map<String, String> usernamePasswordHashMap = new ConcurrentHashMap<>();
     static int nextUserId = 1;
+    static ChatAppController chatAppController;
 
+    private void ChatAppController(){
+
+    }
     /**
      * Chat App entry point.
      * @param args The command line arguments
@@ -31,58 +36,6 @@ public class ChatAppController {
         webSocket("/chatapp", WebSocketController.class);
         init();
 
-        /**
-         * registers a new user or logs in an already registered user
-         * returns the newly created user
-         */
-        Gson gson = new Gson();
-        post("/createUser", (request, response) -> {
-            String body = request.body();
-            return gson.toJson(createUser(body));
-        });
-
-        /**
-         * handles request for creating a new chat room
-         * returns chat room id if chat room successfully created, else returns error message
-         */
-        post("/createChatRoom", (request, response) -> {
-            String body = request.body();
-            return gson.toJson(createChatRoom(body));
-        });
-
-        /**
-         * end point is called when a user joins a chat room
-         * returns the chat room and success if chat rooms successfully joined
-         * if chat room already joined then it returns the chat room
-         */
-        post("/joinChatRoom", (request, response) -> {
-            //TODO implement functionality for joining a chat room
-            String body = request.body();
-
-            return gson.toJson(joinChatRoom(body));
-        });
-
-        /**
-         * handles the request to leave a chat room
-         * returns success if chat rooms successfully exited
-         */
-        post("/leaveChatRoom", (request, response) -> {
-            //TODO implement functionality for leaving a chat room
-            String body = request.body();
-
-           return gson.toJson("");
-        });
-
-
-        /**
-         * returns two lists,
-         * one contains eligible chatrooms the user has already joined,
-         * the other contains eligible chatrooms the user hasn't joined
-         */
-        get("/getEligibleChatRooms", (request, response) -> {
-
-            return gson.toJson("");
-        });
 
     }
 
@@ -123,6 +76,43 @@ public class ChatAppController {
     public static Object sendMessage(String body){
         //TODO parse and return the info.
         return "";
+    }
+
+    public static void addUser(Session session){
+        //generate username, add to session to userId map
+        int userId = nextUserId++;
+        //ChatAppController.userNameMap.put(user, userId);
+
+        //broadcasts user id counter to view
+        try {
+            JsonObject jo = new JsonObject();
+            jo.addProperty("userId", userId);
+            session.getRemote().sendString(String.valueOf(jo));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void logIn(Session session, String request){}
+
+    public static void createChatRoom(Session session, String request){}
+
+    public static void joinChatRoom(Session session, String request){}
+
+    public static void leaveChatRoom(Session session, String request){}
+
+    public static void getEligibleChatRooms(Session session, String request){}
+
+
+
+    public static ChatAppController getInstance(){
+
+        if(chatAppController == null){
+            chatAppController = new ChatAppController();
+        }
+
+        return chatAppController;
     }
 
     /**
