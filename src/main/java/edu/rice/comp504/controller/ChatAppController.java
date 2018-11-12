@@ -42,19 +42,16 @@ public class ChatAppController extends Observable {
         });
 
         post("/joinChatRoom", (request, response) -> {
+            //TODO implement functionality for joining a chat room
             String body = request.body();
+
             return gson.toJson(joinChatRoom(body));
         });
 
-        post("/sendMsg", (request, response) -> {
-            String body = request.body();
-            //TODO
-            return gson.toJson("");
-        });
-
         post("/leaveChatRoom", (request, response) -> {
-           String body = request.body();
-           //TODO
+            //TODO implement functionality for leaving a chat room
+            String body = request.body();
+
            return gson.toJson("");
         });
 
@@ -62,6 +59,12 @@ public class ChatAppController extends Observable {
             //TODO return the ChatRoomController itself
            return gson.toJson("");
         });
+
+        get("/getEligibleChatRooms", (request, response) -> {
+
+            return gson.toJson("");
+        });
+
     }
 
     /**
@@ -98,7 +101,7 @@ public class ChatAppController extends Observable {
      * It should handle both one-to-one msg and one-to-multi msg
      * @param body user send msg to user in chat room
      */
-    public static Object broadcastMessage(String body){
+    public static Object sendMessage(String body){
         //TODO parse and return the info.
         return "";
     }
