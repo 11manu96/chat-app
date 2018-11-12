@@ -2,6 +2,7 @@ package edu.rice.comp504.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import edu.rice.comp504.chatappobject.User;
 import org.eclipse.jetty.websocket.api.Session;
 
 import java.util.Map;
@@ -14,7 +15,9 @@ import static j2html.TagCreator.*;
  * The chat app controller communicates with all the clients on the web socket.
  */
 public class ChatAppController {
-    static Map<Session,String> userNameMap = new ConcurrentHashMap<>();
+    static Map<Session, Integer> userSessionIDMap = new ConcurrentHashMap<>();
+    static Map<Integer, String> userIDNameMap = new ConcurrentHashMap<>();
+    static Map<String, User> userNameObjMap = new ConcurrentHashMap<>();
     static int nextUserId = 1;
 
     /**
