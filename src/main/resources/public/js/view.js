@@ -19,7 +19,7 @@ window.onload = function() {
     $("#btn-send").click(sendMessage);
 
     webSocket.onmessage = function(message) {
-        updateChatRoom(message);
+        updateChatApp(message);
     };
 };
 
@@ -74,8 +74,11 @@ function sendMessage() {
 
 /**
  * Update the chat room with a message
- * @param message  The message to add to chat dialog
+ * @param msg The response or message from server
  */
-function updateChatRoom(msg) {
-
+function updateChatApp(msg) {
+    // server will either send a message or response to a request
+    // parse message and take appropriate action
+    // if message then display in chat dialog
+    // or if response then update appropriate page elements
 }
